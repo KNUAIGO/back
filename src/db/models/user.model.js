@@ -136,6 +136,9 @@ User.init({
         withPassword: {
             attributes: { include: ['password'] }
         },
+        forLogin: {
+            attributes: ['id', 'email', 'password']
+        }
     },
     hooks: {
         afterCreate: (user) => {
