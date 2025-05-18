@@ -1,5 +1,7 @@
-import mysql from 'mysql2/promise';
-import { logger } from '../utils/logger.js';
+const mysql = require('mysql2/promise');
+const dotenv = require('dotenv');
+dotenv.config();
+//const logger = require('../utils/logger.js');
 
 const db = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
@@ -21,18 +23,18 @@ const db = mysql.createPool({
 });
 
 // database 연결 확인
-export const connectDB = async () => {
+const connectDB = async () => {
     try {
         await db.getConnection();
-        logger.info('Database connected successfully');
+        //logger.info('Database connected successfully');
     } catch (error) {
-        logger.error('Database connection failed:', error);
+        //logger.error('Database connection failed:', error);
         throw error;
     }
 }
 
 // 트랜잭션 헬퍼
-export const executeTransaction = async (callback) => {
+const executeTransaction = async (callback) => {
     const connection = await db.getConnection();
 
     try {
@@ -48,4 +50,8 @@ export const executeTransaction = async (callback) => {
     }
 }
 
-export default db;
+module.exports = {
+    db,
+    connectDB,
+    executeTransaction,
+};
