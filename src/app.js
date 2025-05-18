@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // 라우트 설정
-//app.use('/api', routes);
+app.use('/api', routes);
 
 // 데이터베이스 연결 함수
 async function connectDB() {
