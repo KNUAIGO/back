@@ -14,7 +14,13 @@ const loginSchema = Joi.object({
     password: Joi.string().min(6).max(20).required(),
 });
 
+const findIdSchema = Joi.object({
+    name: Joi.string().min(2).max(100).required(),
+    phone: Joi.string().pattern(/^[0-9]{10,15}$/).required(),
+});
+
 module.exports = {
     registerSchema,
     loginSchema,
+    findIdSchema,
 }

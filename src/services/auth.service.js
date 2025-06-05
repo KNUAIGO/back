@@ -40,6 +40,21 @@ class AuthService {
             throw new Error('Login failed: ' + error.message);
         }
     }
+
+    // 아이디 찾기
+    async findId(name, phone) {
+        try {
+            const user = await this.userRepository.getUserByNameAndPhone(name, phone);
+
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            return user.email;
+        } catch (error) {
+            throw new Error('Find ID failed: ' + error.message);
+        }
+    }
 }
 
 module.exports = new AuthService();

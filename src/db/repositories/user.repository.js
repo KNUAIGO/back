@@ -28,6 +28,11 @@ class UserRepository {
     async getUserByPhone(phone) {
         return await User.findOne({ where: { phone } });
     }
+
+    async getUserByNameAndPhone(name, phone) {
+        return await User.findOne({ where: { name, phone } });
+    }
+
 }
 
 module.exports = new UserRepository();
