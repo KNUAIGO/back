@@ -64,6 +64,21 @@ class AuthController {
             return res.status(500).json({ message: 'Internal server error' });
         }
     }
+
+    // 비밀번호 재설정
+    async resetPassword(req, res, next) {
+        try {
+            const { email, name, phone, newPassword } = req.body;
+
+            const user = await authService.resetPassword(email, name, phone, newPassword);
+
+            return res.status(200).json({ message: 'Password reset successful', user });
+        } catch (error) {
+            next(error);
+            
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    }
 }
 
 module.exports = new AuthController();

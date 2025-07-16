@@ -55,6 +55,24 @@ class AuthService {
             throw new Error('Find ID failed: ' + error.message);
         }
     }
+
+    // 이멜, 이름, 전화번호 확인 후 비밀번호 변경
+    async resetPassword(email, name, phone, newPassword) {
+        try {
+            const user = await this.userRepository.getUserByEmailAndNameAndPhone(email, name, phone);
+
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            user.password = newPassword; // Assuming password is hashed in the model's setter
+            await user.save();
+
+            return { message: 'Password reset successfully' };
+        } catch (error) {
+            throw new Error('Reset password failed: ' + error.message);
+        }
+    }
 }
 
 module.exports = new AuthService();
